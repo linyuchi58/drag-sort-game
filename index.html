@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+    <script>
+        // 被嵌在 Google 協作平台框框裡才需要「滿版新分頁」；直接開網址（例如 GitHub）就隱藏
+        try { if (window.self !== window.top) document.documentElement.classList.add('is-embedded'); } catch (e) { document.documentElement.classList.add('is-embedded'); }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
-    <meta name="app-version" content="v3.1">
+    <meta name="app-version" content="v3.2">
     <title>拖曳分類遊戲（可多人合作） [75吋大屏直書大注音×無限熟練×分組接力終極版]</title>
     <style>
         /* 🌟 1. 基礎防護：嚴格鎖定 100% 容器與防 iPad / 75吋大屏多指手勢與選單 */
@@ -371,6 +375,27 @@
         .bp-hint { font-size: 13px; color: #94a3b8; font-weight: 700; padding: 4px 2px; }
         .admin-bin-pick { flex-basis: 100%; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 10px; padding: 8px 10px; }
         .admin-bin-pick .abp-title { font-weight: 900; color: #6b21a8; font-size: 14px; }
+
+        /* ================= 🏠 結束遊戲按鈕 ================= */
+        .end-game-btn { background: #e11d48; color: #fff; border-radius: 999px; padding: 8px 14px; font: inherit; font-size: 15px; font-weight: 900; white-space: nowrap; box-shadow: 0 3px 0 #9f1239; min-height: 42px; }
+        .end-game-btn.armed { background: #facc15; color: #7c2d12; box-shadow: 0 3px 0 #a16207; animation: endArmPulse .5s ease-in-out infinite alternate; }
+        @keyframes endArmPulse { from { transform: scale(1); } to { transform: scale(1.06); } }
+        html:not(.is-embedded) .fulltab-only { display: none !important; }
+
+        /* ================= 📐 放大 125%／150% 也能捲到完整畫面 ================= */
+        /* 置中排列在內容比畫面高時，最上面會被推出畫面外、捲不回來 → 一律從頂端開始排 */
+        #home-screen.screen.active, #settings-screen.screen.active, #result-screen.screen.active { justify-content: flex-start !important; overflow-y: auto !important; }
+        #home-screen > *, #settings-screen > *, #result-screen > * { flex-shrink: 0; }
+        #home-screen .home-card { margin-top: auto; margin-bottom: auto; }   /* 畫面夠高時仍然垂直置中 */
+        /* 觸控螢幕：遊戲畫面以外，手指按在按鈕或小卡上也能上下推動畫面 */
+        #home-screen *, #settings-screen *, #result-screen *, .overlay * { touch-action: manipulation; }
+        #home-screen input[type="range"], #settings-screen input[type="range"] { touch-action: pan-y; }
+        #home-screen, #settings-screen, #result-screen { touch-action: pan-y; }
+        /* 彈出視窗太高時可以捲動 */
+        .overlay { overflow-y: auto; justify-content: flex-start !important; padding: 12px 0; touch-action: pan-y; }
+        .overlay > * { margin-top: auto !important; margin-bottom: auto !important; flex-shrink: 0; }
+        .small-modal-card { max-height: none; }
+        .modal-card { max-height: calc(100% - 24px); }
     </style>
 </head>
 <body tabindex="0">
@@ -388,7 +413,7 @@
             <div class="home-card">
                 <div class="home-top-actions">
                     <button class="top-mini-btn" onclick="testArcadeSoundEffects()" title="測試大屏喇叭音量與音效">🔊 試聽音效</button>
-                    <button class="top-mini-btn" onclick="openInNewFullTab()" title="突破Google協作平台外框限制，在新分頁滿版開啟">🚀 滿版新分頁</button>
+                    <button class="top-mini-btn fulltab-only" onclick="openInNewFullTab()" title="突破Google協作平台外框限制，在新分頁滿版開啟">🚀 滿版新分頁</button>
                 </div>
 
                 <!-- 📺 嵌在 Google 協作平台裡時，最上方顯示大提示：建議先開滿版 -->
@@ -515,7 +540,7 @@
                     <button class="btn-warning" onclick="openHomeLeaderboard()">🏆 雲端排行榜</button>
                     <button class="btn-secondary" onclick="openTeacherLoginModal()" style="background: #64748b; box-shadow: 0 3px 0 #475569;">⚙️ 教師管理 / 雲端出題</button>
                 </div>
-                <div class="app-version" title="v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.1 · 2026-11-14 更新（滑鼠移上來看改版紀錄）</div>
+                <div class="app-version" title="v3.2：結束遊戲按鈕、放大畫面可捲動&#10;v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.2 · 2026-11-14 更新（滑鼠移上來看改版紀錄）</div>
             </div>
         </div>
 
@@ -829,7 +854,7 @@
                     <button id="pause-btn" class="icon-circle-btn" onclick="togglePause()" title="暫停" style="display:none;">⏸️</button>
                     <button id="voice-toggle-btn" class="icon-circle-btn" onclick="toggleVoiceInGame()" title="切換語音播報">🔊</button>
                     <button class="icon-circle-btn" onclick="toggleNativeFullscreen()" title="切換瀏覽器全螢幕">📺</button>
-                    <button class="icon-circle-btn" onclick="openInNewFullTab()" title="在新分頁滿版開啟">⛶</button>
+                    <button id="end-game-btn" class="end-game-btn" onclick="onEndGameBtn(this)" title="結束這一局，回到一開始的設定畫面（1 秒內再按一次確認）">🏠 結束遊戲，回主畫面</button>
                 </div>
             </div>
             <div id="canvas-container">
@@ -2714,8 +2739,9 @@
         // 🎯 5. 拖曳分類遊戲（可多人合作）核心引擎
         // =====================================================================
         // ===================== 版本紀錄 =====================
-        const APP_VERSION = 'v3.1';
+        const APP_VERSION = 'v3.2';
         const APP_VERSION_DATE = '2026-11-14';
+        //   v3.2  遊戲中「🏠 結束遊戲，回主畫面」（1 秒內再按一次確認）；放大 125%／150% 也能捲到完整畫面、觸控可捲動
         //   v3.1  換組畫面「全員站好就自動開始」改成大按鈕（觸控螢幕可點）；接力組別預設單純叫「第一組、第二組…」
         //   v3.0  分類箱改成「勾選」：首頁臨時設定與後台預設都列出全部分類箱，勾 2~4 箱（照題庫順序），不再只能取前幾箱
         //   v2.9  換組改為兩段式：本組成績 8 秒（可暫停講評）→ 下一組就位畫面（上方老師長按開始、下方每人一格「我站好了」、可選全員站好自動開始）
@@ -5316,7 +5342,26 @@
             }
         }
         function backToHome() { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); showScreen('home-screen'); }
-        function backToHomeFromGame() { hideHandoverScreen(); clearInterval(timerId); cancelAnimationFrame(animId); if ('speechSynthesis' in window) window.speechSynthesis.cancel(); showScreen('home-screen'); }
+        // 🏠 結束遊戲：按一下變成「再按一次確定結束」，1 秒內再按一次才結束（防學生誤觸）；中途結束的這一局不記成績
+        let endGameArmTimer = null;
+        function resetEndGameBtn() {
+            clearTimeout(endGameArmTimer); endGameArmTimer = null;
+            const b = document.getElementById('end-game-btn');
+            if (b) { b.classList.remove('armed'); b.innerText = '🏠 結束遊戲，回主畫面'; }
+        }
+        function onEndGameBtn(btn) {
+            if (btn.classList.contains('armed')) {
+                resetEndGameBtn();
+                try { const po = document.getElementById('pause-overlay'); if (po) po.style.display = 'none'; isPaused = false; } catch (e) {}
+                backToHomeFromGame();
+                return;
+            }
+            btn.classList.add('armed');
+            btn.innerText = '⚠️ 再按一次確定結束';
+            clearTimeout(endGameArmTimer);
+            endGameArmTimer = setTimeout(resetEndGameBtn, 1000);
+        }
+        function backToHomeFromGame() { resetEndGameBtn(); hideHandoverScreen(); clearInterval(timerId); cancelAnimationFrame(animId); if ('speechSynthesis' in window) window.speechSynthesis.cancel(); showScreen('home-screen'); }
         function escapeHtml(str) { return String(str || '').replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s])); }
     </script>
 </body>
