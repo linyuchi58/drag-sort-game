@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
-    <meta name="app-version" content="v3.0">
+    <meta name="app-version" content="v3.1">
     <title>拖曳分類遊戲（可多人合作） [75吋大屏直書大注音×無限熟練×分組接力終極版]</title>
     <style>
         /* 🌟 1. 基礎防護：嚴格鎖定 100% 容器與防 iPad / 75吋大屏多指手勢與選單 */
@@ -338,8 +338,11 @@
         @keyframes hoGlow { 0%,100% { box-shadow: 0 6px 0 #14532d, 0 0 0 0 rgba(74,222,128,0.7); } 50% { box-shadow: 0 6px 0 #14532d, 0 0 0 14px rgba(74,222,128,0); } }
         .ho-start-fill { position: absolute; left: 0; top: 0; bottom: 0; width: 0%; background: #4ade80; transition: none; }
         .ho-start-label { position: relative; }
-        .ho-auto { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.08); border: 2px solid rgba(250,204,21,0.6); border-radius: 18px; padding: 8px 14px; color: #fde68a; font-weight: 900; font-size: clamp(13px, 1.4vw, 18px); cursor: pointer; max-width: 30%; }
-        .ho-auto input { width: 26px; height: 26px; accent-color: #facc15; flex-shrink: 0; }
+        .ho-auto { display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.08); border: 3px solid rgba(250,204,21,0.6); border-radius: 18px; padding: 10px 18px; min-height: 56px; color: #fde68a; font: inherit; font-size: 18px; font-weight: 900; cursor: pointer; touch-action: manipulation; box-shadow: none; -webkit-tap-highlight-color: transparent; }
+        .ho-auto .ho-auto-box { width: 30px; height: 30px; border-radius: 9px; border: 3px solid #facc15; display: inline-flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; color: #1e293b; background: transparent; flex-shrink: 0; }
+        .ho-auto.on { background: #facc15; border-color: #facc15; color: #1e293b; }
+        .ho-auto.on .ho-auto-box { background: #fff; border-color: #fff; }
+        .ho-auto:active { transform: scale(0.97); }
         .ho-ready-count { text-align: center; font-size: clamp(16px, 1.9vw, 24px); font-weight: 900; color: #94a3b8; }
         .ho-ready-count.all { color: #4ade80; }
 
@@ -442,8 +445,8 @@
                     <div id="code-status" class="code-status" style="grid-column: 1 / -1;"></div>
 
                     <div id="single-name-group" class="form-group full">
-                        <label id="name-label">🤝 隊伍名稱前綴 (多組接力將自動編號為「第1組、第2組...」)</label>
-                        <input type="text" id="login-name" value="分類小尖兵" placeholder="例如：分類小尖兵 (直接按開始即可！)" maxlength="12">
+                        <label id="name-label">🤝 隊伍名稱前綴（可不填，接力會自動叫「第一組、第二組…」）</label>
+                        <input type="text" id="login-name" value="" placeholder="可不填（例如：五年一班）" maxlength="12">
                     </div>
 
                     <div id="pk-names-grid">
@@ -512,7 +515,7 @@
                     <button class="btn-warning" onclick="openHomeLeaderboard()">🏆 雲端排行榜</button>
                     <button class="btn-secondary" onclick="openTeacherLoginModal()" style="background: #64748b; box-shadow: 0 3px 0 #475569;">⚙️ 教師管理 / 雲端出題</button>
                 </div>
-                <div class="app-version" title="v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.0 · 2026-11-12 更新（滑鼠移上來看改版紀錄）</div>
+                <div class="app-version" title="v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.1 · 2026-11-14 更新（滑鼠移上來看改版紀錄）</div>
             </div>
         </div>
 
@@ -1539,7 +1542,7 @@
                 singleGroup.style.display = 'flex';
                 pkGrid.style.display = 'none';
                 if (quickTotalGroups > 1) {
-                    nameLabel.innerHTML = `🤝 隊伍名稱前綴 (接力賽將自動標記為「第1組、第2組...」)`;
+                    nameLabel.innerHTML = `🤝 隊伍名稱前綴 <span style="color:#7f8c8d;">（可不填，接力會自動叫「第一組、第二組…」）</span>`;
                 } else {
                     nameLabel.innerHTML = quickPlayerCount === 1
                         ? `👤 小朋友姓名或暱稱 <span style="color:#e74c3c;">*必填</span>`
@@ -1794,7 +1797,7 @@
                 localStorage.removeItem('WHACK_GAS_URL');
                 if (localStorage.getItem('BC5_CODE')) document.getElementById('login-code').value = localStorage.getItem('BC5_CODE');
                 if (localStorage.getItem('BC5_SEAT')) document.getElementById('login-seat').value = localStorage.getItem('BC5_SEAT');
-                if (localStorage.getItem('BC5_NAME')) document.getElementById('login-name').value = localStorage.getItem('BC5_NAME');
+                if (localStorage.getItem('BC5_NAME') && localStorage.getItem('BC5_NAME') !== '分類小尖兵') document.getElementById('login-name').value = localStorage.getItem('BC5_NAME');
             } catch (e) {}
 
             if (window.__TRANSFERRED_STATE__) {
@@ -1843,7 +1846,7 @@
             const cContainer = document.getElementById('canvas-container');
 
             window.addEventListener('touchstart', (e) => {
-                if (document.getElementById('game-screen').classList.contains('active') && e.target.tagName !== 'BUTTON') {
+                if (document.getElementById('game-screen').classList.contains('active') && !(e.target.closest && e.target.closest('button, input, label, select, #handover-screen'))) {
                     e.preventDefault();
                 }
             }, { passive: false });
@@ -2711,8 +2714,9 @@
         // 🎯 5. 拖曳分類遊戲（可多人合作）核心引擎
         // =====================================================================
         // ===================== 版本紀錄 =====================
-        const APP_VERSION = 'v3.0';
-        const APP_VERSION_DATE = '2026-11-12';
+        const APP_VERSION = 'v3.1';
+        const APP_VERSION_DATE = '2026-11-14';
+        //   v3.1  換組畫面「全員站好就自動開始」改成大按鈕（觸控螢幕可點）；接力組別預設單純叫「第一組、第二組…」
         //   v3.0  分類箱改成「勾選」：首頁臨時設定與後台預設都列出全部分類箱，勾 2~4 箱（照題庫順序），不再只能取前幾箱
         //   v2.9  換組改為兩段式：本組成績 8 秒（可暫停講評）→ 下一組就位畫面（上方老師長按開始、下方每人一格「我站好了」、可選全員站好自動開始）
         //   v2.8  移除「你上次玩的」（協作平台內記不住）；「最近大家在玩」改列 3 個公開代碼
@@ -3055,10 +3059,21 @@
             }
         }
 
+        // 🔢 組別用國字：第一組、第二組…第十二組
+        function zhNum(n) {
+            n = parseInt(n) || 0;
+            const d = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+            if (n <= 0 || n >= 100) return String(n);
+            if (n < 10) return d[n];
+            const t = Math.floor(n / 10), o = n % 10;
+            return (t === 1 ? '十' : d[t] + '十') + (o ? d[o] : '');
+        }
         function getCurrentGroupDisplayName() {
             const base = currentStudent.playerName || "分類小尖兵";
             if (!isPracticeMode() && quickTotalGroups > 1 && !isPkMode()) {
-                return `第${currentRelayGroupIdx}組-${base}`;
+                // 沒填隊名（或還是預設的「分類小尖兵」）就單純叫「第一組」
+                const custom = (base && base !== '分類小尖兵') ? `-${base}` : '';
+                return `第${zhNum(currentRelayGroupIdx)}組${custom}`;
             }
             return base;
         }
@@ -4299,7 +4314,7 @@
                 const champ = sorted[0];
                 groupScore = champ.score;
                 const cleanChamp = champ.name.replace(/^[^\s]+\s*/, '');
-                groupUploadName = quickTotalGroups > 1 ? `第${currentRelayGroupIdx}組冠軍-${cleanChamp}` : `👑${cleanChamp}`;
+                groupUploadName = quickTotalGroups > 1 ? `第${zhNum(currentRelayGroupIdx)}組冠軍-${String(cleanChamp).replace(/^(紅|藍|綠|黃)隊選手$/, '$1隊')}` : `👑${cleanChamp}`;
             }
 
             const groupRecord = {
@@ -4349,7 +4364,7 @@
             el.style.display = 'flex';
             renderHandoverScorePhase();
             playZoneSound('finish', 0);
-            speakText(`第${latestRecord.groupIndex}組完成，總分${latestRecord.score}分！`, true);
+            speakText(`第${zhNum(latestRecord.groupIndex)}組完成，總分${latestRecord.score}分！`, true);
         }
 
         function handoverRankInfo(rec) {
@@ -4379,7 +4394,7 @@
                     </div>
                 </div>
                 <div class="ho-score-main">
-                    <div class="ho-score-title">🎉 第 ${rec.groupIndex} 組完成！</div>
+                    <div class="ho-score-title">🎉 第${zhNum(rec.groupIndex)}組完成！</div>
                     <div class="ho-score-name">${escapeHtml(rec.groupName)}</div>
                     <div class="ho-score-big"><span id="ho-score-num">0</span><small> 分</small></div>
                     <div class="ho-score-sub">目前第 <b>${rank}</b> 名（共 ${total} 組）　·　${escapeHtml(tier)}　·　答對 ${rec.correctCount}　放錯 ${rec.wrongCount}</div>
@@ -4436,22 +4451,23 @@
             el.innerHTML = `
                 <div class="ho-top">
                     <div class="ho-prev">
-                        <span>🏁 第 ${rec.groupIndex} 組：<b>${rec.score} 分</b>　·　目前第 ${rank} 名（共 ${total} 組）　·　答對 ${rec.correctCount}／放錯 ${rec.wrongCount}</span>
+                        <span>🏁 第${zhNum(rec.groupIndex)}組：<b>${rec.score} 分</b>　·　目前第 ${rank} 名（共 ${total} 組）　·　答對 ${rec.correctCount}／放錯 ${rec.wrongCount}</span>
                         <button class="ho-pill ghost small" onclick="finishRelayEarly()">🏆 提前結束頒獎</button>
                     </div>
-                    <div class="ho-call">第 ${nextNum} 組同學，請到螢幕前面！</div>
+                    <div class="ho-call">第${zhNum(nextNum)}組同學，請到螢幕前面！</div>
                     <div class="ho-call-sub">一人站一格，站好後按自己格子裡的「✋ 我站好了」</div>
                     <div class="ho-start-row">
                         <button class="ho-start" id="ho-start"
                             onpointerdown="holdStartBegin(event)" onpointerup="holdStartCancel()" onpointerleave="holdStartCancel()" onpointercancel="holdStartCancel()"
                             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); if(!event.repeat) holdStartBegin(event);}" onkeyup="holdStartCancel()">
                             <span class="ho-start-fill" id="ho-start-fill"></span>
-                            <span class="ho-start-label" id="ho-start-label">👆 老師按住 1 秒：開始第 ${nextNum} 組（${nextNum}/${quickTotalGroups}）</span>
+                            <span class="ho-start-label" id="ho-start-label">👆 老師按住 1 秒：開始第${zhNum(nextNum)}組（${nextNum}/${quickTotalGroups}）</span>
                         </button>
-                        <label class="ho-auto" title="只在這一場有效；關掉網頁或回首頁就恢復">
-                            <input type="checkbox" id="ho-auto" ${handoverAutoStart ? 'checked' : ''} onchange="handoverAutoStart=this.checked; checkHandoverAllReady();">
+                        <button type="button" id="ho-auto" class="ho-auto ${handoverAutoStart ? 'on' : ''}" role="switch" aria-checked="${handoverAutoStart}"
+                            title="只在這一場有效；關掉網頁或回首頁就恢復" onclick="toggleHandoverAuto()">
+                            <span class="ho-auto-box">${handoverAutoStart ? '✓' : ''}</span>
                             <span>⚡ 本場：全員站好就自動開始</span>
-                        </label>
+                        </button>
                     </div>
                     <div class="ho-ready-count" id="ho-ready-count">已站好 0 / ${zones.length} 人</div>
                 </div>
@@ -4464,7 +4480,7 @@
                         <button class="ho-ready-btn" id="ho-ready-${i}" onclick="toggleHandoverReady(${i})">✋ 我站好了</button>
                     </div>`).join('')}
                 </div>`;
-            speakText(`請第${nextNum}組同學到螢幕前面，一人站一格，站好後按我站好了！`, true);
+            speakText(`請第${zhNum(nextNum)}組同學到螢幕前面，一人站一格，站好後按我站好了！`, true);
         }
 
         function toggleHandoverReady(i) {
@@ -4478,6 +4494,17 @@
             checkHandoverAllReady();
         }
 
+        // 觸控螢幕也能點：用按鈕當開關（原本的小勾選框在觸控大屏常點不到）
+        function toggleHandoverAuto() {
+            handoverAutoStart = !handoverAutoStart;
+            const b = document.getElementById('ho-auto');
+            if (b) {
+                b.classList.toggle('on', handoverAutoStart);
+                b.setAttribute('aria-checked', String(handoverAutoStart));
+                const box = b.querySelector('.ho-auto-box'); if (box) box.textContent = handoverAutoStart ? '✓' : '';
+            }
+            checkHandoverAllReady();
+        }
         function checkHandoverAllReady() {
             const n = handoverReady.filter(Boolean).length, total = handoverReady.length;
             const cnt = document.getElementById('ho-ready-count'); if (!cnt) return;
