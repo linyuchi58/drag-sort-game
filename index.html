@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Huninn&display=swap">
-    <meta name="app-version" content="v3.2">
+    <meta name="app-version" content="v3.3">
     <title>拖曳分類遊戲（可多人合作） [75吋大屏直書大注音×無限熟練×分組接力終極版]</title>
     <style>
         /* 🌟 1. 基礎防護：嚴格鎖定 100% 容器與防 iPad / 75吋大屏多指手勢與選單 */
@@ -494,6 +494,7 @@
                     </summary>
                     <div class="adv-toolbar">
                         <button id="home-zhuyin-btn" class="pill-toggle-btn" onclick="toggleZhuyinMode()">ㄅㄆㄇ 注音：開啟 ✅</button>
+                        <button id="home-lively-btn" class="pill-toggle-btn active" onclick="toggleLivelySfx()">🎉 熱鬧音效：開啟 ✅</button>
                         <span id="zy-engine-status" class="zy-engine-status loading">注音引擎：載入中…</span>
                     </div>
                     <div class="adv-note">💡 打完挑戰代碼會自動帶入老師的預設值。這裡的調整只用在這次上課，<b>不會改到雲端題庫</b>；要永久修改請到「⚙️ 教師管理」。</div>
@@ -540,7 +541,7 @@
                     <button class="btn-warning" onclick="openHomeLeaderboard()">🏆 雲端排行榜</button>
                     <button class="btn-secondary" onclick="openTeacherLoginModal()" style="background: #64748b; box-shadow: 0 3px 0 #475569;">⚙️ 教師管理 / 雲端出題</button>
                 </div>
-                <div class="app-version" title="v3.2：結束遊戲按鈕、放大畫面可捲動&#10;v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.2 · 2026-11-14 更新（滑鼠移上來看改版紀錄）</div>
+                <div class="app-version" title="v3.3：熱鬧音效（含背景音樂）&#10;v3.2：結束遊戲按鈕、放大畫面可捲動&#10;v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.3 · 2026-11-15 更新（滑鼠移上來看改版紀錄）</div>
             </div>
         </div>
 
@@ -790,6 +791,7 @@
                         <label><input type="checkbox" id="set-zhuyin" checked onchange="syncZhuyinFromAdmin()"> ㄅㄆㄇ 顯示右側注音</label>
                         <label><input type="checkbox" id="set-pause"> 允許暫停</label>
                         <label><input type="checkbox" id="set-voice" checked> 🔊 語音鼓勵</label>
+                        <label title="街機風效果音＋背景節奏音樂；關掉就是原本的柔和音效"><input type="checkbox" id="set-lively" checked> 🎉 熱鬧音效（含背景音樂）</label>
                         <label title="打開後，有人玩這個代碼時，它會出現在所有人首頁的「🔥 最近大家在玩」（最多列 3 個）。預設關閉；測驗、考試用的代碼請保持關閉。"><input type="checkbox" id="set-list-home"> 🌐 公開這個代碼（出現在所有人首頁的「最近大家在玩」）</label>
                     </div>
                 </div>
@@ -852,6 +854,7 @@
                     <button id="hud-zhuyin-btn" class="pill-toggle-btn" onclick="toggleZhuyinMode()" title="切換國字右側直排注音">ㄅㄆㄇ 注音:開</button>
                     <button id="finish-practice-btn" class="pill-toggle-btn" style="background:#27ae60; display:none;" onclick="finishPracticeNow()">✅ 結束練習看成績</button>
                     <button id="pause-btn" class="icon-circle-btn" onclick="togglePause()" title="暫停" style="display:none;">⏸️</button>
+                    <button id="bgm-toggle-btn" class="icon-circle-btn" onclick="toggleBgmMute()" title="背景音樂靜音（老師要講話時）">🎵</button>
                     <button id="voice-toggle-btn" class="icon-circle-btn" onclick="toggleVoiceInGame()" title="切換語音播報">🔊</button>
                     <button class="icon-circle-btn" onclick="toggleNativeFullscreen()" title="切換瀏覽器全螢幕">📺</button>
                     <button id="end-game-btn" class="end-game-btn" onclick="onEndGameBtn(this)" title="結束這一局，回到一開始的設定畫面（1 秒內再按一次確認）">🏠 結束遊戲，回主畫面</button>
@@ -1530,7 +1533,7 @@
             const binTasks = homeBinTasks();
             const binTxt = binTasks ? binPickNames(binTasks, quickBinPicks).join('・') : `${quickBinCount}箱`;
 
-            const zyTxt = enableZhuyin ? '注音開' : '注音關';
+            const zyTxt = (enableZhuyin ? '注音開' : '注音關') + (livelySfx ? ' · 🎉熱鬧' : ' · 🔔柔和');
             if (isPracticeMode()) {
                 document.getElementById('quick-summary-tag').innerText = `♾️ 1人熟練 · 速度${quickSpeed} · 🧺${binTxt} · ${zyTxt}`;
             } else {
@@ -1683,6 +1686,7 @@
                 quickBinCount: quickBinCount,
                 quickBinPicks: quickBinPicks.slice(),
                 enableZhuyin: enableZhuyin,
+                livelySfx: livelySfx,
                 isStandaloneTab: true
             };
             const cloneDoc = document.documentElement.cloneNode(true);
@@ -1841,6 +1845,7 @@
                 if (st.quickSpeed) document.getElementById('slider-speed').value = st.quickSpeed;
                 if (Array.isArray(st.quickBinPicks) && st.quickBinPicks.length) quickBinPicks = st.quickBinPicks.slice();
                 if (st.enableZhuyin !== undefined) enableZhuyin = st.enableZhuyin;
+                if (st.livelySfx !== undefined) livelySfx = st.livelySfx;
                 if (st.ruleType) selectRuleType(st.ruleType);
             }
 
@@ -1998,6 +2003,8 @@
             quickBinPicks = newPicks;
             const zy = cfg.enableZhuyin !== false;
             if (zy !== enableZhuyin) { enableZhuyin = zy; updateZhuyinButtonsUI(); changed.push(document.getElementById('home-zhuyin-btn')); }
+            const lv = cfg.lively !== false;   // 舊代碼沒有這個設定 → 開啟
+            if (lv !== livelySfx) { livelySfx = lv; updateLivelyButtonsUI(); changed.push(document.getElementById('home-lively-btn')); }
             onQuickSliderChange();
             if (changed.length) {
                 changed.push(document.querySelector('#advanced-settings > summary'));
@@ -2022,8 +2029,8 @@
             const mode = MODE_LABEL[c.defaultMode] || MODE_LABEL.coop;
             const bins = binPickNames(tasks, defaultBinPicksFromCfg(c)).join('・');
             const setting = c.defaultMode === 'practice'
-                ? `${mode} · 速度 ${c.speed || 3} · 🧺${bins} · ${c.enableZhuyin !== false ? '注音開' : '注音關'}`
-                : `${mode} · 👥${c.playerCount || 4}人 × 🏁${c.relayGroups || 6}組 · ⏱️${c.time || 40}秒 · 🧺${bins} · ${c.enableZhuyin !== false ? '注音開' : '注音關'}`;
+                ? `${mode} · 速度 ${c.speed || 3} · 🧺${bins} · ${c.enableZhuyin !== false ? '注音開' : '注音關'} · ${c.lively !== false ? '🎉熱鬧音效' : '🔔柔和音效'}`
+                : `${mode} · 👥${c.playerCount || 4}人 × 🏁${c.relayGroups || 6}組 · ⏱️${c.time || 40}秒 · 🧺${bins} · ${c.enableZhuyin !== false ? '注音開' : '注音關'} · ${c.lively !== false ? '🎉熱鬧音效' : '🔔柔和音效'}`;
             box.innerHTML = `<div class="cs-line1">✅ ${homeRoomCache.isDefault ? '自學示範題庫' : `代碼 <b>${code}</b> 已載入`}：${escapeHtml(names)}（${tasks.length} 類 · ${total} 個答案）</div>
                 <div class="cs-line2">老師預設：${setting}</div>`;
         }
@@ -2509,6 +2516,7 @@
             updateZhuyinButtonsUI();
             document.getElementById('set-pause').checked = !!params.allowPause;
             document.getElementById('set-voice').checked = params.enableVoice !== false;
+            document.getElementById('set-lively').checked = params.lively !== false;
             document.getElementById('set-list-home').checked = params.listOnHome === true;
             document.getElementById('set-display-name').value = params.displayName || '';
             renderSettings();
@@ -2706,6 +2714,7 @@
             params.enableZhuyin = document.getElementById('set-zhuyin').checked;
             params.allowPause = document.getElementById('set-pause').checked;
             params.enableVoice = document.getElementById('set-voice').checked;
+            params.lively = document.getElementById('set-lively').checked;
             params.listOnHome = document.getElementById('set-list-home').checked;
             params.displayName = document.getElementById('set-display-name').value.trim();
             params.roomPin = pin;
@@ -2739,8 +2748,9 @@
         // 🎯 5. 拖曳分類遊戲（可多人合作）核心引擎
         // =====================================================================
         // ===================== 版本紀錄 =====================
-        const APP_VERSION = 'v3.2';
-        const APP_VERSION_DATE = '2026-11-14';
+        const APP_VERSION = 'v3.3';
+        const APP_VERSION_DATE = '2026-11-15';
+        //   v3.3  🎉 熱鬧音效（街機風效果音＋背景節奏音樂，首頁與後台都可開關，預設開啟）
         //   v3.2  遊戲中「🏠 結束遊戲，回主畫面」（1 秒內再按一次確認）；放大 125%／150% 也能捲到完整畫面、觸控可捲動
         //   v3.1  換組畫面「全員站好就自動開始」改成大按鈕（觸控螢幕可點）；接力組別預設單純叫「第一組、第二組…」
         //   v3.0  分類箱改成「勾選」：首頁臨時設定與後台預設都列出全部分類箱，勾 2~4 箱（照題庫順序），不再只能取前幾箱
@@ -2909,10 +2919,127 @@
             src.start(t0); src.stop(t0 + dur + 0.02);
         }
 
+        // =====================================================================
+        // 🎉 v3.3 熱鬧音效：街機風效果音＋背景節奏音樂（全部即時合成，不用載入音樂檔）
+        // =====================================================================
+        let livelySfx = true;        // 熱鬧音效（預設開啟；代碼可存老師預設）
+        let bgmMuted = false;        // 遊戲中 🎵 一鍵靜音背景音樂（只影響這一場）
+        function toggleLivelySfx() {
+            livelySfx = !livelySfx;
+            updateLivelyButtonsUI();
+            showToast(livelySfx ? '🎉 已開啟熱鬧音效（含背景音樂）' : '🔔 已切換為柔和音效');
+            try { onQuickSliderChange(); } catch (e) {}
+        }
+        function updateLivelyButtonsUI() {
+            const b = document.getElementById('home-lively-btn');
+            if (b) { b.innerText = livelySfx ? '🎉 熱鬧音效：開啟 ✅' : '🔔 熱鬧音效：關閉（柔和）'; b.classList.toggle('active', livelySfx); }
+            const m = document.getElementById('bgm-toggle-btn');
+            if (m) { m.style.display = livelySfx ? '' : 'none'; m.innerText = bgmMuted ? '🔇' : '🎵'; m.title = bgmMuted ? '打開背景音樂' : '背景音樂靜音（老師要講話時）'; }
+        }
+        function toggleBgmMute() { bgmMuted = !bgmMuted; updateLivelyButtonsUI(); showToast(bgmMuted ? '🔇 背景音樂已靜音' : '🎵 背景音樂已打開'); refocusGame(); }
+
+        // ---------- 街機風效果音 ----------
+        function lvSquare(dest, f, t0, dur, gain, to) { sfxTone(dest, f, t0, dur, { type: 'square', gain, to }); }
+        function lvClap(dest, t0, gain) {
+            for (let k = 0; k < 3; k++) sfxNoise(dest, t0 + k * 0.012, 0.09, 1200, 2400, gain);
+        }
+        function lvKick(dest, t0, gain) { sfxTone(dest, 150, t0, 0.14, { to: 45, gain }); }
+        function playLivelySound(type, dest, now, level) {
+            const C5 = 523.25;
+            switch (type) {
+                case 'hit': {   // 吃金幣「叮鈴！」，連擊音階往上爬
+                    const step = Math.pow(2, Math.min(level, 12) / 12);
+                    lvSquare(dest, 987.77 * step, now, 0.07, 0.10);
+                    lvSquare(dest, 1318.5 * step, now + 0.07, 0.20, 0.10);
+                    sfxBell(dest, 1975.5 * step, now + 0.07, 0.25, 0.10);
+                    sfxNoise(dest, now, 0.10, 3000, 6000, 0.08);
+                    return true;
+                }
+                case 'wrong':   // 短促明顯的「嗶嗶」
+                    lvSquare(dest, 196, now, 0.11, 0.16);
+                    lvSquare(dest, 185, now + 0.14, 0.16, 0.16);
+                    sfxTone(dest, 98, now, 0.30, { type: 'sawtooth', gain: 0.07 });
+                    return true;
+                case 'combo':   // 小號角＋拍手
+                    [C5, C5 * 1.25, C5 * 1.5, C5 * 2].forEach((f, i) => {
+                        sfxTone(dest, f, now + i * 0.08, i === 3 ? 0.42 : 0.12, { type: 'sawtooth', gain: 0.07 });
+                        lvSquare(dest, f, now + i * 0.08, i === 3 ? 0.42 : 0.12, 0.05);
+                    });
+                    for (let k = 0; k < 6; k++) lvClap(dest, now + 0.3 + k * 0.09 + Math.random() * 0.02, 0.14);
+                    return true;
+                case 'count':   // 鼓聲「咚」
+                    lvKick(dest, now, 0.55);
+                    sfxNoise(dest, now, 0.12, 200, 800, 0.12);
+                    return true;
+                case 'go':      // GO！上揚號角
+                    lvKick(dest, now, 0.5);
+                    [C5, C5 * 1.25, C5 * 1.5, C5 * 2].forEach((f, i) => sfxTone(dest, f, now + i * 0.06, i === 3 ? 0.6 : 0.1, { type: 'sawtooth', gain: 0.07 }));
+                    sfxNoise(dest, now + 0.18, 0.5, 2000, 6000, 0.10);
+                    return true;
+                case 'tick':    // 最後 10 秒：小鼓
+                    sfxNoise(dest, now, 0.07, 1500, 3000, 0.16);
+                    return true;
+                case 'alarm':   // 最後 5 秒：急促雙響
+                    lvSquare(dest, 1046.5, now, 0.08, 0.10);
+                    lvSquare(dest, 1046.5, now + 0.12, 0.08, 0.10);
+                    return true;
+                case 'timeup':  // 哨音
+                    sfxTone(dest, 2100, now, 0.18, { gain: 0.14 });
+                    sfxTone(dest, 2100, now + 0.22, 0.55, { to: 1900, gain: 0.14 });
+                    sfxNoise(dest, now, 0.75, 2500, 3500, 0.05);
+                    return true;
+                case 'finish':  // 勝利小樂曲
+                    [[C5, 0], [C5 * 1.25, 0.12], [C5 * 1.5, 0.24], [C5 * 2, 0.36], [C5 * 1.5, 0.6], [C5 * 2, 0.72]].forEach(([f, t], i) => {
+                        sfxTone(dest, f, now + t, i >= 3 ? 0.4 : 0.11, { type: 'sawtooth', gain: 0.07 });
+                        lvSquare(dest, f / 2, now + t, i >= 3 ? 0.4 : 0.11, 0.05);
+                    });
+                    for (let k = 0; k < 8; k++) lvClap(dest, now + 0.5 + k * 0.08 + Math.random() * 0.02, 0.12);
+                    return true;
+            }
+            return false;
+        }
+
+        // ---------- 背景節奏音樂（C–Am–F–G 循環；最後 10 秒加快） ----------
+        let bgmTimer = null, bgmNextTime = 0, bgmStep = 0, bgmGain = null;
+        const BGM_CHORDS = [[130.81, 261.63, 329.63, 392.0], [110.0, 220.0, 261.63, 329.63], [87.31, 174.61, 220.0, 261.63], [98.0, 196.0, 246.94, 293.66]];
+        function bgmShouldPlay() {
+            if (!audioCtx || !livelySfx || bgmMuted || isPaused || endBanner) return false;
+            const gs = document.getElementById('game-screen');
+            if (!gs || !gs.classList.contains('active')) return false;
+            const ho = document.getElementById('handover-screen');
+            if (ho && ho.style.display && ho.style.display !== 'none') return false;
+            return Date.now() >= introEndAt - 200;
+        }
+        function bgmIsUrgent() { return !isPracticeMode() && timeLeft <= 10 && timeLeft > 0; }
+        function startBgm() {
+            if (!audioCtx || bgmTimer) return;
+            if (!bgmGain) { bgmGain = audioCtx.createGain(); bgmGain.gain.value = 0.55; bgmGain.connect(masterCompressor || audioCtx.destination); }
+            bgmNextTime = audioCtx.currentTime + 0.1; bgmStep = 0;
+            bgmTimer = setInterval(bgmSchedule, 60);
+        }
+        function bgmSchedule() {
+            if (!audioCtx) return;
+            if (!bgmShouldPlay()) { bgmNextTime = audioCtx.currentTime + 0.1; return; }
+            const urgent = bgmIsUrgent();
+            const sixteenth = 60 / (urgent ? 152 : 124) / 4;
+            while (bgmNextTime < audioCtx.currentTime + 0.18) {
+                const t = bgmNextTime, s = bgmStep % 16, bar = Math.floor(bgmStep / 16) % 4;
+                const ch = BGM_CHORDS[bar];
+                if (s % 4 === 0) lvKick(bgmGain, t, 0.30);                                     // 大鼓：每拍
+                if (s % 4 === 2) sfxNoise(bgmGain, t, 0.04, 6000, 9000, 0.06);                  // 開鈸：反拍
+                if (s === 4 || s === 12) for (let k = 0; k < 2; k++) sfxNoise(bgmGain, t + k * 0.01, 0.09, 1300, 2300, 0.08);   // 拍手
+                if (urgent && s % 2 === 1) sfxNoise(bgmGain, t, 0.03, 7000, 9000, 0.04);        // 緊張時加密小鈸
+                if (s % 2 === 0) sfxTone(bgmGain, ch[0] * (s % 8 === 6 ? 2 : 1), t, sixteenth * 1.6, { type: 'triangle', gain: 0.13 });   // 低音
+                if (s % 2 === 1 || urgent) sfxTone(bgmGain, ch[1 + (s % 3)] * 2, t, sixteenth * 0.8, { type: 'square', gain: 0.022 });     // 琶音
+                bgmNextTime += sixteenth; bgmStep++;
+            }
+        }
+
         function playZoneSound(type, teamIndex = 0, level = 0) {
             if (!audioCtx) return;
             const now = audioCtx.currentTime + 0.005;
             const dest = sfxDest(teamIndex);
+            if (livelySfx && playLivelySound(type, dest, now, level)) return;   // 🎉 熱鬧音效（左右聲道照舊）
             const C5 = 523.25;
             switch (type) {
                 case 'pop':     // 拿起卡片
@@ -3194,6 +3321,7 @@
 
         function initGame() {
             clearInterval(timerId); cancelAnimationFrame(animId);
+            try { initAudio(); startBgm(); } catch (e) {}
             resizeCanvas();
             activeCategories = getActiveCategoriesFromTasks();
             preloadGameFonts();
@@ -4768,6 +4896,7 @@
         function showScreen(id) {
             document.querySelectorAll('.screen').forEach(el => el.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            updateLivelyButtonsUI();
             if (id === 'game-screen') {
                 resizeCanvas();
                 setTimeout(resizeCanvas, 120);
