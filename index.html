@@ -335,7 +335,7 @@
         .side-end.holding { color: #fff; }
         .side-end small { font-size: 11.5px; color: #64748b; font-weight: 700; }
         .side-end.holding small { color: #ffe4e6; }
-        .ho-screen .side-end { background: rgba(15,23,42,.85); color: #fda4af; border-color: rgba(251,113,133,.7); }
+        .ho-screen .side-end { background: rgba(15,23,42,.88); color: #fda4af; border-color: rgba(251,113,133,.8); top: calc(33.3vh - 8px); transform: translateY(-100%); height: min(150px, calc(33.3vh - 16px)); }
         .ho-screen .side-end small { color: #94a3b8; }
         #game-screen.side-gutter #canvas-container { width: calc(100% - 128px); margin: 0 auto; }
         #game-screen .side-end { position: fixed; }
@@ -682,7 +682,7 @@
                     <button class="btn-warning" onclick="openHomeLeaderboard()">🏆 雲端排行榜</button>
                     <button class="btn-secondary" onclick="openTeacherLoginModal()" style="background: #64748b; box-shadow: 0 3px 0 #475569;">⚙️ 教師管理 / 雲端出題</button>
                 </div>
-                <div class="app-version" title="v3.5.1：遊戲中的結束按鈕移到隊員列的高度&#10;v3.5：移除段位升級；左右兩側「按住1秒・直接結束挑戰」；成績畫面上方「下一組請準備」；最後10秒「下一組請排隊」；不再稱「第○組」&#10;v3.4：按「開始挑戰」先出現第一組就位畫面；全員站好自動開始預設開啟，左上角多一個同樣的開關&#10;v3.3：熱鬧音效（含背景音樂）&#10;v3.2：結束遊戲按鈕、放大畫面可捲動&#10;v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.5.1 · 2026-11-20 更新（滑鼠移上來看改版紀錄）</div>
+                <div class="app-version" title="v3.5.2：排隊提示移到上方題目區；成績畫面結束按鈕移到黃色區域&#10;v3.5.1：遊戲中的結束按鈕移到隊員列的高度&#10;v3.5：移除段位升級；左右兩側「按住1秒・直接結束挑戰」；成績畫面上方「下一組請準備」；最後10秒「下一組請排隊」；不再稱「第○組」&#10;v3.4：按「開始挑戰」先出現第一組就位畫面；全員站好自動開始預設開啟，左上角多一個同樣的開關&#10;v3.3：熱鬧音效（含背景音樂）&#10;v3.2：結束遊戲按鈕、放大畫面可捲動&#10;v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.5.2 · 2026-11-20 更新（滑鼠移上來看改版紀錄）</div>
             </div>
         </div>
 
@@ -4128,7 +4128,7 @@
             ctx.restore();
 
             // 👥 各隊小卡
-            placeGameSideEnd(hasTeamRow ? row1Y + topRowH + rowGap + botRowH / 2 : row1Y + topRowH / 2);
+            placeGameSideEnd(hasTeamRow ? row1Y + topRowH + rowGap + botRowH / 2 : row1Y + topRowH / 2, row1Y + topRowH / 2);
             if (hasTeamRow) {
                 const row2Y = row1Y + topRowH + rowGap;
                 const cardGap = 8;
@@ -5694,11 +5694,14 @@
         }
         // v3.5.1：遊戲中的結束按鈕放在「紅區隊員」那一列的高度（離學生操作區遠一點）
         let sideEndY = -1;
-        function placeGameSideEnd(rowCenterY) {
+        function placeGameSideEnd(rowCenterY, taskCenterY) {
             if (Math.abs(rowCenterY - sideEndY) < 1) return;
             sideEndY = rowCenterY;
-            const top = canvas.getBoundingClientRect().top + rowCenterY;
-            document.querySelectorAll('#game-side-end .side-end').forEach(b => { b.style.top = top + 'px'; });
+            const cr = canvas.getBoundingClientRect(), gr = document.getElementById('game-screen').getBoundingClientRect();
+            document.querySelectorAll('#game-side-end .side-end').forEach(b => { b.style.top = (cr.top + rowCenterY) + 'px'; });
+            // v3.5.2：「下一組請排隊」放在上方題目區（題目整局都一樣，不會擋到各隊成績）
+            const q = document.getElementById('queue-banner');
+            if (q && taskCenterY != null) q.style.top = (cr.top - gr.top + taskCenterY) + 'px';
         }
         function showQueueBanner() {
             if (isPracticeMode() || quickTotalGroups <= 1 || currentRelayGroupIdx >= quickTotalGroups) return;
