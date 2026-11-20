@@ -35,7 +35,7 @@
         @keyframes urgentBlink { 0% { background: #ffffff; } 100% { background: #fee2e2; } }
         .hud-left-info > span:first-child { display: none; } /* 秒數已在畫面計時圓環顯示，避免重複 */
         .hud-left-info { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: clamp(12px, 1.5vw, 15px); }
-        #rank-display { color: #0f766e; background: #ccfbf1; padding: 3px 10px; border-radius: 999px; }
+        #rank-display { display: none !important; }
         #relay-progress-badge { color: #92400e; background: #fef3c7; padding: 3px 10px; border-radius: 999px; }
         #task-display { display: none; }
         .combo-badge { display: none; background: linear-gradient(45deg, #ff416c, #ff4b2b); color: white; padding: 2px 8px; border-radius: 14px; font-weight: 900; font-size: clamp(11px, 1.5vw, 14px); box-shadow: 0 0 10px rgba(255,65,108,0.8); border: 1px solid #fff; white-space: nowrap; }
@@ -311,7 +311,41 @@
 
         /* 畫面 1：成績 */
         .phase-score { background: radial-gradient(circle at 50% 35%, #1e3a8a 0%, #0f172a 70%); }
-        .ho-score-top { display: flex; justify-content: center; padding: 14px; }
+        .ho-score-top { display: flex; justify-content: center; padding: 10px 14px 4px; }
+        /* v3.5：成績畫面上方 1/3 —— 下一組請準備 */
+        .ho-next-banner { position: relative; flex: 0 0 33.3vh; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1vh; overflow: hidden;
+            background: linear-gradient(135deg, #fde047 0%, #facc15 35%, #fb923c 100%); color: #7c2d12; text-align: center; padding: 0 40px; box-shadow: 0 6px 30px rgba(250,204,21,.45); }
+        .ho-next-banner .nb-text { font-size: clamp(30px, min(5.4vw, 9vh), 96px); font-weight: 900; line-height: 1.15; letter-spacing: 2px;
+            text-shadow: 0 3px 0 #fff7ed, 0 6px 18px rgba(255,255,255,.7); animation: nbPulse 1.1s ease-in-out infinite alternate; }
+        .ho-next-banner .nb-sub { font-size: clamp(16px, min(2vw, 3.4vh), 32px); font-weight: 900; color: #9a3412; }
+        .ho-next-banner .nb-shine { position: absolute; top: 0; bottom: 0; width: 30%; left: -40%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.65), transparent); animation: nbShine 2.4s ease-in-out infinite; pointer-events: none; }
+        @keyframes nbPulse { from { transform: scale(1); } to { transform: scale(1.05); } }
+        @keyframes nbShine { 0% { left: -40%; } 60%, 100% { left: 120%; } }
+        .phase-score .ho-score-main { gap: 0.6vh; justify-content: flex-start; padding-top: 1vh; }
+        .phase-score .ho-score-title { font-size: clamp(24px, min(3.6vw, 6vh), 52px); }
+        .phase-score .ho-score-big { font-size: clamp(56px, min(9vw, 15vh), 150px); }
+        .phase-score .ho-score-sub { font-size: clamp(14px, min(1.7vw, 3vh), 24px); }
+        .phase-score .ho-rank-row { padding: 0.5vh 14px; font-size: clamp(13px, min(1.5vw, 2.6vh), 20px); }
+        /* v3.5：左右兩側「按住 1 秒・直接結束挑戰」 */
+        .side-end { position: absolute; top: 66.7%; transform: translateY(-50%); z-index: 30; width: 54px; height: 150px; border-radius: 14px; border: 2px solid rgba(225,29,72,.7);
+            background: rgba(255,255,255,.92); color: #be123c; font: inherit; font-weight: 900; font-size: 15px; line-height: 1.15; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+            writing-mode: vertical-rl; letter-spacing: 2px; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; box-shadow: 0 3px 10px rgba(15,23,42,.18); }
+        .side-end.left { left: 5px; } .side-end.right { right: 5px; }
+        .side-end .se-fill { position: absolute; left: 0; right: 0; bottom: 0; height: calc(var(--p, 0) * 100%); background: rgba(225,29,72,.85); z-index: -1; }
+        .side-end.holding { color: #fff; }
+        .side-end small { font-size: 11.5px; color: #64748b; font-weight: 700; }
+        .side-end.holding small { color: #ffe4e6; }
+        .ho-screen .side-end { background: rgba(15,23,42,.85); color: #fda4af; border-color: rgba(251,113,133,.7); }
+        .ho-screen .side-end small { color: #94a3b8; }
+        #game-screen.side-gutter #canvas-container { width: calc(100% - 128px); margin: 0 auto; }
+        #game-screen .side-end { position: fixed; }
+        #end-game-btn { display: none !important; }
+        /* v3.5：最後 10 秒「下一組請排隊」 */
+        #queue-banner { position: absolute; left: 50%; top: 25%; transform: translate(-50%, -50%); z-index: 20; pointer-events: none; display: none;
+            background: linear-gradient(90deg, rgba(124,58,237,.92), rgba(219,39,119,.92)); color: #fff; font-weight: 900; font-size: clamp(20px, min(2.8vw, 5vh), 46px);
+            padding: 1.2vh 3vw; border-radius: 999px; border: 3px solid #fde68a; box-shadow: 0 8px 26px rgba(124,58,237,.45); white-space: nowrap; animation: qbBlink .8s ease-in-out infinite alternate; }
+        #queue-banner.show { display: block; }
+        @keyframes qbBlink { from { opacity: .82; transform: translate(-50%, -50%) scale(1); } to { opacity: 1; transform: translate(-50%, -50%) scale(1.04); } }
         .ho-timer { display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.08); border-radius: 999px; padding: 6px 8px 6px 18px; font-size: clamp(14px, 1.6vw, 20px); font-weight: 900; color: #cbd5e1; }
         .ho-timer.paused { background: rgba(250,204,21,0.18); color: #fde68a; }
         .ho-score-main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 0 20px 20px; text-align: center; }
@@ -648,7 +682,7 @@
                     <button class="btn-warning" onclick="openHomeLeaderboard()">🏆 雲端排行榜</button>
                     <button class="btn-secondary" onclick="openTeacherLoginModal()" style="background: #64748b; box-shadow: 0 3px 0 #475569;">⚙️ 教師管理 / 雲端出題</button>
                 </div>
-                <div class="app-version" title="v3.4：按「開始挑戰」先出現第一組就位畫面；全員站好自動開始預設開啟，左上角多一個同樣的開關&#10;v3.3：熱鬧音效（含背景音樂）&#10;v3.2：結束遊戲按鈕、放大畫面可捲動&#10;v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.4 · 2026-11-19 更新（滑鼠移上來看改版紀錄）</div>
+                <div class="app-version" title="v3.5：移除段位升級；左右兩側「按住1秒・直接結束挑戰」；成績畫面上方「下一組請準備」；最後10秒「下一組請排隊」；不再稱「第○組」&#10;v3.4：按「開始挑戰」先出現第一組就位畫面；全員站好自動開始預設開啟，左上角多一個同樣的開關&#10;v3.3：熱鬧音效（含背景音樂）&#10;v3.2：結束遊戲按鈕、放大畫面可捲動&#10;v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.5 · 2026-11-20 更新（滑鼠移上來看改版紀錄）</div>
             </div>
         </div>
 
@@ -967,6 +1001,8 @@
                     <button id="end-game-btn" class="end-game-btn" onclick="onEndGameBtn(this)" title="結束這一局，回到一開始的設定畫面（1 秒內再按一次確認）">🏠 結束遊戲，回主畫面</button>
                 </div>
             </div>
+            <div id="queue-banner">🚶 下一組的同學請到旁邊排隊等待！</div>
+            <div id="game-side-end"></div>
             <div id="canvas-container">
                 <canvas id="game-canvas"></canvas>
                 <div id="pause-overlay" class="overlay">
@@ -3241,14 +3277,7 @@
             for (let i = hammerTiers.length - 1; i >= 0; i--) {
                 if (score >= hammerTiers[i].minScore) { newIdx = i; break; }
             }
-            if (newIdx > currentHammerIdx) {
-                currentHammerIdx = newIdx;
-                playZoneSound('powerup', 0);
-                const mm = getTouchZoneMetrics();
-                comboBanners.push({ x: VW / 2, y: mm.topY + (mm.binTopY - mm.topY) * 0.25, text: '⭐ 段位升級！', sub: hammerTiers[currentHammerIdx].title, life: 80, maxLife: 80 });
-            } else {
-                currentHammerIdx = newIdx;
-            }
+            currentHammerIdx = newIdx;   // v3.5：不再顯示「段位升級」
             document.getElementById('rank-display').innerText = hammerTiers[currentHammerIdx].title;
         }
 
@@ -3343,9 +3372,9 @@
         function getCurrentGroupDisplayName() {
             const base = currentStudent.playerName || "分類小尖兵";
             if (!isPracticeMode() && quickTotalGroups > 1 && !isPkMode()) {
-                // 沒填隊名（或還是預設的「分類小尖兵」）就單純叫「第一組」
+                // 沒填隊名（或還是預設的「分類小尖兵」）就單純叫「第1輪」（v3.5：不用「第○組」，避免和教室真正的組別混淆）
                 const custom = (base && base !== '分類小尖兵') ? `-${base}` : '';
-                return `第${zhNum(currentRelayGroupIdx)}組${custom}`;
+                return `第${currentRelayGroupIdx}輪${custom}`;
             }
             return base;
         }
@@ -3382,6 +3411,8 @@
         window.addEventListener('keydown', handleKeyDown, { passive: false });
 
         function startGameFlow() {
+            hideQueueBanner();
+            refreshGameSideEnd();
             initAudio();
             document.getElementById('pause-btn').style.display = params.allowPause ? 'flex' : 'none';
             document.getElementById('voice-toggle-btn').innerText = params.enableVoice ? '🔊' : '🔇';
@@ -3484,6 +3515,7 @@
                         updateHUD();
                     } else {
                         timeLeft--;
+                        if (timeLeft === 10) showQueueBanner();
                         if (timeLeft <= 10 && timeLeft > 0) {
                             lastTickAt = Date.now();
                             document.getElementById('hud').classList.add('urgent');
@@ -3504,7 +3536,7 @@
             if (isPracticeMode()) {
                 document.getElementById('relay-progress-badge').innerText = `♾️ 熟練進度：${practiceCompletedCount} / ${practiceTotalTargetCount} 題`;
             } else {
-                document.getElementById('relay-progress-badge').innerText = `🏁 第 ${currentRelayGroupIdx} / ${quickTotalGroups} 組`;
+                document.getElementById('relay-progress-badge').innerText = `🏁 第 ${currentRelayGroupIdx} / ${quickTotalGroups} 輪`;
             }
             const comboBadge = document.getElementById('combo-badge');
             if (combo >= 2) {
@@ -4058,7 +4090,7 @@
             ctx.fillStyle = '#64748b';
             const topSubTxt = isPracticeMode()
                 ? `♾️ 熟練進度 ${practiceCompletedCount} / ${practiceTotalTargetCount}（放錯的會再出現）`
-                : `🏁 第 ${currentRelayGroupIdx} / ${quickTotalGroups} 組 · ${getCurrentGroupDisplayName()}`;
+                : `🏁 第 ${currentRelayGroupIdx} / ${quickTotalGroups} 輪`;
             fitFont(topSubTxt, topRowH * 0.2, 9, cW - 20);
             ctx.fillText(topSubTxt, cX + cW / 2, row1Y + topRowH * 0.26);
 
@@ -4578,6 +4610,7 @@
         // === 9. 單組時間到或熟練完成：處理「分組接力中場換人」或「最終總頒獎典禮（隱藏下方雲端榜，完整列出當節課所有組別）」 ===
         function onSingleGroupTimeUp(completedAllPractice = false) {
             clearInterval(timerId); cancelAnimationFrame(animId);
+            hideQueueBanner();
             playZoneSound('powerup', 0);
 
             let groupUploadName = getCurrentGroupDisplayName();
@@ -4587,7 +4620,7 @@
                 const champ = sorted[0];
                 groupScore = champ.score;
                 const cleanChamp = champ.name.replace(/^[^\s]+\s*/, '');
-                groupUploadName = quickTotalGroups > 1 ? `第${zhNum(currentRelayGroupIdx)}組冠軍-${String(cleanChamp).replace(/^(紅|藍|綠|黃)隊選手$/, '$1隊')}` : `👑${cleanChamp}`;
+                groupUploadName = quickTotalGroups > 1 ? `第${currentRelayGroupIdx}輪冠軍-${String(cleanChamp).replace(/^(紅|藍|綠|黃)隊選手$/, '$1隊')}` : `👑${cleanChamp}`;
             }
 
             const groupRecord = {
@@ -4637,7 +4670,7 @@
             el.style.display = 'flex';
             renderHandoverScorePhase();
             playZoneSound('finish', 0);
-            speakText(`第${zhNum(latestRecord.groupIndex)}組完成，總分${latestRecord.score}分！`, true);
+            speakText(`這一組完成，總分${latestRecord.score}分！下一組同學請準備站到螢幕前！`, true);
         }
 
         function handoverRankInfo(rec) {
@@ -4659,6 +4692,10 @@
             const el = document.getElementById('handover-screen');
             el.className = 'ho-screen phase-score';
             el.innerHTML = `
+                <div class="ho-next-banner"><div class="nb-shine"></div>
+                    <div class="nb-text">📣 下一組學生請準備站到螢幕前！</div>
+                    <div class="nb-sub">排隊的同學請往前走，站到自己的位置</div>
+                </div>
                 <div class="ho-score-top">
                     <div class="ho-timer" id="ho-timer">
                         <span id="ho-timer-text">${handoverLeft} 秒後換下一組</span>
@@ -4667,12 +4704,12 @@
                     </div>
                 </div>
                 <div class="ho-score-main">
-                    <div class="ho-score-title">🎉 第${zhNum(rec.groupIndex)}組完成！</div>
-                    <div class="ho-score-name">${escapeHtml(rec.groupName)}</div>
+                    <div class="ho-score-title">🎉 這一組完成！</div>
                     <div class="ho-score-big"><span id="ho-score-num">0</span><small> 分</small></div>
-                    <div class="ho-score-sub">目前第 <b>${rank}</b> 名（共 ${total} 組）　·　${escapeHtml(tier)}　·　答對 ${rec.correctCount}　放錯 ${rec.wrongCount}</div>
+                    <div class="ho-score-sub">目前第 <b>${rank}</b> 名（共 ${total} 輪）　·　答對 ${rec.correctCount}　放錯 ${rec.wrongCount}</div>
                     <div class="ho-rank-list">${top}</div>
-                </div>`;
+                </div>
+                ${sideEndButtonsHtml()}`;
             // 分數往上跳
             const target = rec.score, t0 = performance.now();
             const tick = (t) => {
@@ -4719,8 +4756,8 @@
             const { rank, total } = first ? { rank: 0, total: 0 } : handoverRankInfo(rec);
             const nextNum = first ? 1 : currentRelayGroupIdx + 1;
             const multi = quickTotalGroups > 1 && !isPracticeMode();
-            const callName = (first && !multi) ? '請挑戰的同學到螢幕前面！' : `第${zhNum(nextNum)}組同學，請到螢幕前面！`;
-            const startText = (first && !multi) ? '👆 老師按住 1 秒：開始挑戰' : `👆 老師按住 1 秒：開始第${zhNum(nextNum)}組（${nextNum}/${quickTotalGroups}）`;
+            const callName = first ? '請挑戰的同學到螢幕前面！' : '下一組同學，請到螢幕前面！';
+            const startText = !multi ? '👆 老師按住 1 秒：開始挑戰' : `👆 老師按住 1 秒：開始${first ? '挑戰' : '下一組'}（第 ${nextNum} / ${quickTotalGroups} 輪）`;
             const autoBtn = (id, mini) => `<button type="button" id="${id}" class="ho-auto${mini ? ' mini' : ''} ${handoverAutoStart ? 'on' : ''}" role="switch" aria-checked="${handoverAutoStart}"
                             title="只在這一場有效；關掉網頁或回首頁就恢復" onclick="toggleHandoverAuto()">
                             <span class="ho-auto-box">${handoverAutoStart ? '✓' : ''}</span>
@@ -4733,10 +4770,10 @@
             el.innerHTML = `
                 <div class="ho-top">
                     ${first ? `<div class="ho-prev">
-                        <span>🎮 準備開始${multi ? `：共 <b>${quickTotalGroups}</b> 組接力` : ''}</span>
+                        <span>🎮 準備開始${multi ? `：共 <b>${quickTotalGroups}</b> 輪接力` : ''}</span>
                         <button class="ho-pill ghost small" onclick="backToHomeFromGame()">🏠 回首頁</button>
                     </div>` : `<div class="ho-prev">
-                        <span>🏁 第${zhNum(rec.groupIndex)}組：<b>${rec.score} 分</b>　·　目前第 ${rank} 名（共 ${total} 組）　·　答對 ${rec.correctCount}／放錯 ${rec.wrongCount}</span>
+                        <span>🏁 上一組：<b>${rec.score} 分</b>　·　目前第 ${rank} 名（共 ${total} 輪）　·　答對 ${rec.correctCount}／放錯 ${rec.wrongCount}</span>
                         <button class="ho-pill ghost small" onclick="finishRelayEarly()">🏆 提前結束頒獎</button>
                     </div>`}
                     <div class="ho-call-row">${autoBtn('ho-auto-mini', true)}<div class="ho-call">${callName}</div></div>
@@ -4761,7 +4798,7 @@
                         <button class="ho-ready-btn" id="ho-ready-${i}" onclick="toggleHandoverReady(${i})">✋ 我站好了</button>
                     </div>`).join('')}
                 </div>`;
-            speakText(`${(first && !multi) ? '請挑戰的同學' : `請第${zhNum(nextNum)}組同學`}到螢幕前面，一人站一格，站好後按我站好了！`, true);
+            speakText(`${first ? '請挑戰的同學' : '請下一組同學'}到螢幕前面，一人站一格，站好後按我站好了！`, true);
         }
 
         function toggleHandoverReady(i) {
@@ -5616,7 +5653,49 @@
             clearTimeout(endGameArmTimer);
             endGameArmTimer = setTimeout(resetEndGameBtn, 1000);
         }
-        function backToHomeFromGame() { resetEndGameBtn(); hideHandoverScreen(); clearInterval(timerId); cancelAnimationFrame(animId); if ('speechSynthesis' in window) window.speechSynthesis.cancel(); showScreen('home-screen'); }
+        // ================= v3.5：左右兩側「按住 1 秒・直接結束挑戰」 =================
+        function sideEndButtonsHtml() {
+            const one = (side) => `<button type="button" class="side-end ${side}" onpointerdown="sideEndDown(event, this)" title="老師按住 1 秒：直接結束挑戰（已比完的組別直接頒獎）"><span class="se-fill"></span>⏹ 直接結束挑戰<small>按住1秒</small></button>`;
+            return one('left') + one('right');
+        }
+        let sideEndRaf = null;
+        function sideEndDown(e, btn) {
+            e.preventDefault(); e.stopPropagation();
+            try { btn.setPointerCapture(e.pointerId); } catch (er) {}
+            const t0 = performance.now();
+            btn.classList.add('holding');
+            const stop = () => { cancelAnimationFrame(sideEndRaf); sideEndRaf = null; btn.classList.remove('holding'); btn.style.setProperty('--p', 0); btn.removeEventListener('pointerup', stop); btn.removeEventListener('pointercancel', stop); btn.removeEventListener('lostpointercapture', stop); };
+            btn.addEventListener('pointerup', stop); btn.addEventListener('pointercancel', stop); btn.addEventListener('lostpointercapture', stop);
+            const step = (t) => {
+                const p = Math.min(1, (t - t0) / 1000);
+                btn.style.setProperty('--p', p);
+                if (p >= 1) { stop(); endChallengeNow(); return; }
+                sideEndRaf = requestAnimationFrame(step);
+            };
+            sideEndRaf = requestAnimationFrame(step);
+        }
+        function endChallengeNow() {
+            clearInterval(timerId); cancelAnimationFrame(animId);
+            hideQueueBanner();
+            try { const po = document.getElementById('pause-overlay'); if (po) po.style.display = 'none'; isPaused = false; } catch (e) {}
+            if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+            if (relaySessionHistory.length > 0 && !isPracticeMode()) { finishRelayEarly(); }
+            else { backToHomeFromGame(); }
+        }
+        function refreshGameSideEnd() {
+            const gs = document.getElementById('game-screen'), box = document.getElementById('game-side-end');
+            if (!gs || !box) return;
+            gs.classList.add('side-gutter');
+            if (!box.innerHTML) box.innerHTML = sideEndButtonsHtml();
+            setTimeout(resizeCanvas, 0);
+        }
+        function showQueueBanner() {
+            if (isPracticeMode() || quickTotalGroups <= 1 || currentRelayGroupIdx >= quickTotalGroups) return;
+            document.getElementById('queue-banner').classList.add('show');
+            speakText('下一組的同學請到旁邊排隊等待！', false);
+        }
+        function hideQueueBanner() { const q = document.getElementById('queue-banner'); if (q) q.classList.remove('show'); }
+        function backToHomeFromGame() { resetEndGameBtn(); hideQueueBanner(); hideHandoverScreen(); clearInterval(timerId); cancelAnimationFrame(animId); if ('speechSynthesis' in window) window.speechSynthesis.cancel(); showScreen('home-screen'); }
         function escapeHtml(str) { return String(str || '').replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s])); }
     </script>
 <script>
