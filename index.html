@@ -377,6 +377,11 @@
         @media (max-width: 700px) { .ho-call-row { flex-direction: column; gap: 6px; } .ho-call-row .ho-call { padding: 0; } .ho-auto.mini { position: static; transform: none; } }
         .ho-call-sub { text-align: center; font-size: clamp(16px, 2vw, 26px); color: #93c5fd; font-weight: 700; }
         .ho-start-row { display: flex; align-items: stretch; gap: 12px; }
+        .ho-end-hold { position: relative; overflow: hidden; z-index: 0; flex: 0 0 auto; width: clamp(104px, 9vw, 140px); white-space: nowrap; border-radius: 18px; border: 2px solid rgba(251,113,133,.75); background: rgba(15,23,42,.9); color: #fda4af;
+            font: inherit; font-weight: 900; font-size: clamp(13px, 1.25vw, 17px); line-height: 1.25; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; padding: 6px 8px;
+            touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+        .ho-end-hold small { font-size: 0.78em; color: #94a3b8; font-weight: 700; }
+        .ho-end-hold.holding { color: #fff; } .ho-end-hold.holding small { color: #ffe4e6; }
         .ho-start { position: relative; flex: 1; overflow: hidden; border: none; border-radius: 18px; background: #15803d; color: #fff; font-size: clamp(20px, 2.6vw, 34px); font-weight: 900; padding: 16px 12px; margin: 0; cursor: pointer; box-shadow: 0 6px 0 #14532d; user-select: none; -webkit-user-select: none; touch-action: none; }
         .ho-start.glow { animation: hoGlow 1s ease-in-out infinite; }
         @keyframes hoGlow { 0%,100% { box-shadow: 0 6px 0 #14532d, 0 0 0 0 rgba(74,222,128,0.7); } 50% { box-shadow: 0 6px 0 #14532d, 0 0 0 14px rgba(74,222,128,0); } }
@@ -682,7 +687,7 @@
                     <button class="btn-warning" onclick="openHomeLeaderboard()">🏆 雲端排行榜</button>
                     <button class="btn-secondary" onclick="openTeacherLoginModal()" style="background: #64748b; box-shadow: 0 3px 0 #475569;">⚙️ 教師管理 / 雲端出題</button>
                 </div>
-                <div class="app-version" title="v3.5.2：排隊提示移到上方題目區；成績畫面結束按鈕移到黃色區域&#10;v3.5.1：遊戲中的結束按鈕移到隊員列的高度&#10;v3.5：移除段位升級；左右兩側「按住1秒・直接結束挑戰」；成績畫面上方「下一組請準備」；最後10秒「下一組請排隊」；不再稱「第○組」&#10;v3.4：按「開始挑戰」先出現第一組就位畫面；全員站好自動開始預設開啟，左上角多一個同樣的開關&#10;v3.3：熱鬧音效（含背景音樂）&#10;v3.2：結束遊戲按鈕、放大畫面可捲動&#10;v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.5.2 · 2026-11-20 更新（滑鼠移上來看改版紀錄）</div>
+                <div class="app-version" title="v3.5.3：就位畫面的「提前結束頒獎」移到綠色按鈕左右兩側，按住 1 秒才有效&#10;v3.5.2：排隊提示移到上方題目區；成績畫面結束按鈕移到黃色區域&#10;v3.5.1：遊戲中的結束按鈕移到隊員列的高度&#10;v3.5：移除段位升級；左右兩側「按住1秒・直接結束挑戰」；成績畫面上方「下一組請準備」；最後10秒「下一組請排隊」；不再稱「第○組」&#10;v3.4：按「開始挑戰」先出現第一組就位畫面；全員站好自動開始預設開啟，左上角多一個同樣的開關&#10;v3.3：熱鬧音效（含背景音樂）&#10;v3.2：結束遊戲按鈕、放大畫面可捲動&#10;v3.1：自動開始開關可觸控、組別改叫第一組／第二組&#10;v3.0：分類箱改成勾選，首頁與後台都能挑要玩哪幾箱&#10;v2.9：換組兩段式畫面：成績 8 秒可暫停 → 下一組就位（老師長按開始、每人一格我站好了、可選全員到齊自動開始）&#10;v2.8：移除「你上次玩的」；「最近大家在玩」改列 3 個公開代碼&#10;v2.7：首頁代碼捷徑：你上次玩的＋最近大家在玩（老師主動公開的代碼）；公開開關預設關閉&#10;v2.6：首頁列出這台裝置最近玩過的 3 個代碼；後台新增「題庫名稱」與「允許列出」開關&#10;v2.5：首頁打完挑戰代碼自動載入題庫與老師預設；後台新增「預設遊戲模式」；首頁臨時調整不回存雲端&#10;v2.4：答案編輯器新增「🔍 最相關圖示」：依輸入的名稱即時列出最多 10 個相關 Emoji（內建繁中 Emoji 關鍵字表，斷網可用）；只找到一個時自動選上&#10;v2.3.1：修正：用注音輸入法打完名稱後點圖示，名稱會消失&#10;v2.3：後台答案改成小卡編輯器：每個答案可單獨改圖示、名稱、注音、圖片網址或刪除；依分類名稱與答案名稱推薦 Emoji；圖片網址即時縮圖預覽&#10;v2.2：嵌在協作平台時顯示「滿版新分頁」大提示；移除拖曳虛線&#10;v2.1：首頁改版；開場 3-2-1 倒數；答對飛進桶子、連擊、時間到橫幅；柔和音效；修正分類箱重複&#10;v2.0：三層注音引擎（括號注音 → CDN 萬字詞庫 → 離線字典）；明亮版面、回收桶造型、高解析度畫布&#10;v1.0：原始版本（Gemini 製作）">拖曳分類遊戲 v3.5.3 · 2026-11-20 更新（滑鼠移上來看改版紀錄）</div>
             </div>
         </div>
 
@@ -4759,7 +4764,7 @@
             const nextNum = first ? 1 : currentRelayGroupIdx + 1;
             const multi = quickTotalGroups > 1 && !isPracticeMode();
             const callName = first ? '請挑戰的同學到螢幕前面！' : '下一組同學，請到螢幕前面！';
-            const startText = !multi ? '👆 老師按住 1 秒：開始挑戰' : `👆 老師按住 1 秒：開始${first ? '挑戰' : '下一組'}（第 ${nextNum} / ${quickTotalGroups} 輪）`;
+            const startText = !multi ? '👆 老師按住 1 秒：開始挑戰' : `👆 老師按住 1 秒：開始${first ? '挑戰' : '下一組'}（${nextNum}/${quickTotalGroups}）`;
             const autoBtn = (id, mini) => `<button type="button" id="${id}" class="ho-auto${mini ? ' mini' : ''} ${handoverAutoStart ? 'on' : ''}" role="switch" aria-checked="${handoverAutoStart}"
                             title="只在這一場有效；關掉網頁或回首頁就恢復" onclick="toggleHandoverAuto()">
                             <span class="ho-auto-box">${handoverAutoStart ? '✓' : ''}</span>
@@ -4773,14 +4778,13 @@
                 <div class="ho-top">
                     ${first ? `<div class="ho-prev">
                         <span>🎮 準備開始${multi ? `：共 <b>${quickTotalGroups}</b> 輪接力` : ''}</span>
-                        <button class="ho-pill ghost small" onclick="backToHomeFromGame()">🏠 回首頁</button>
                     </div>` : `<div class="ho-prev">
                         <span>🏁 上一組：<b>${rec.score} 分</b>　·　目前第 ${rank} 名（共 ${total} 輪）　·　答對 ${rec.correctCount}／放錯 ${rec.wrongCount}</span>
-                        <button class="ho-pill ghost small" onclick="finishRelayEarly()">🏆 提前結束頒獎</button>
                     </div>`}
                     <div class="ho-call-row">${autoBtn('ho-auto-mini', true)}<div class="ho-call">${callName}</div></div>
                     <div class="ho-call-sub">一人站一格，站好後按自己格子裡的「✋ 我站好了」</div>
                     <div class="ho-start-row">
+                        ${holdEndBtn('left', first)}
                         <button class="ho-start" id="ho-start"
                             onpointerdown="holdStartBegin(event)" onpointerup="holdStartCancel()" onpointerleave="holdStartCancel()" onpointercancel="holdStartCancel()"
                             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); if(!event.repeat) holdStartBegin(event);}" onkeyup="holdStartCancel()">
@@ -4788,6 +4792,7 @@
                             <span class="ho-start-label" id="ho-start-label">${startText}</span>
                         </button>
                         ${autoBtn('ho-auto', false)}
+                        ${holdEndBtn('right', first)}
                     </div>
                     <div class="ho-ready-count" id="ho-ready-count">已站好 0 / ${zones.length} 人</div>
                 </div>
@@ -5656,6 +5661,11 @@
             endGameArmTimer = setTimeout(resetEndGameBtn, 1000);
         }
         // ================= v3.5：左右兩側「按住 1 秒・直接結束挑戰」 =================
+        // v3.5.3：就位畫面「按住 1 秒」提前結束頒獎（第一輪還沒比時是回首頁）
+        function holdEndBtn(side, first) {
+            const txt = first ? '🏠 回首頁' : '🏆 提前結束<br>並頒獎';
+            return `<button type="button" class="ho-end-hold ${side}" onpointerdown="sideEndDown(event, this)" title="老師按住 1 秒：${first ? '回首頁' : '提前結束並頒獎'}"><span class="se-fill"></span><span class="hh-t">${txt}</span><small>按住 1 秒</small></button>`;
+        }
         function sideEndButtonsHtml() {
             const one = (side) => `<button type="button" class="side-end ${side}" onpointerdown="sideEndDown(event, this)" title="老師按住 1 秒：直接結束挑戰（已比完的組別直接頒獎）"><span class="se-fill"></span>⏹ 直接結束挑戰<small>按住1秒</small></button>`;
             return one('left') + one('right');
